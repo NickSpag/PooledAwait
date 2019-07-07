@@ -7,7 +7,7 @@ Well... what about if there just **wasn't**?
 
 And what if all you had to do was change your `async ValueTask<int>` method to `async PooledValueTask<int>`?
 
-And I here you; you're saying "but I can't change the public API!". But what if a `PooledValueTask<int>` really *was*
+And I hear you; you're saying "but I can't change the public API!". But what if a `PooledValueTask<int>` really *was*
 a `ValueTask<int>`? So you can just cheat:
 
 ``` c#
@@ -23,7 +23,7 @@ public ValueTask<int> DoTheThing() // the outer method is not async
 }
 ```
 
-And how about if maybe just maybe in the future it could be ([if this happens](https://github.com/dotnet/csharplang/issues/1407)) just:
+And how about if maybe, just maybe, in the future it could be ([if this happens](https://github.com/dotnet/csharplang/issues/1407)) just:
 
 ``` c#
 [SomeKindOfAttribute] // <=== this is the only change
@@ -64,11 +64,11 @@ Disclosure: There's something wrong with 2 results; I haven't got to why yet.
 |      PooledTask |        int | 2,314.172 ns |  98.018 ns |  5.3727 ns | 0.0273 |      - |     - |      96 B |
 |                 |            |              |            |            |        |        |       |           |
 |            Task |       void | 2,056.287 ns |  87.165 ns |  4.7778 ns | 0.0352 |      - |     - |     112 B |
-|       ValueTask |     † void |     3.865 ns |   9.092 ns |  0.4984 ns | 0.0001 | 0.0000 |     - |       1 B |
-| PooledValueTask |     † void |    10.496 ns |  11.156 ns |  0.6115 ns | 0.0001 | 0.0000 |     - |         - |
+|       ValueTask |     â€  void |     3.865 ns |   9.092 ns |  0.4984 ns | 0.0001 | 0.0000 |     - |       1 B |
+| PooledValueTask |     â€  void |    10.496 ns |  11.156 ns |  0.6115 ns | 0.0001 | 0.0000 |     - |         - |
 |      PooledTask |       void | 2,299.826 ns | 121.711 ns |  6.6714 ns | 0.0273 |      - |     - |      96 B |
 
-(I'm not sure that I trust the benchmarks marked †)
+(I'm not sure that I trust the benchmarks marked â€ )
 
 The 3 tests do the exact same thing; the only thing that changes is the return type, i.e. whether it is `async Task<int>`, `async ValueTask<int>`, `async PooledTask<int>` or `async PooledValueTask<int>`.
 
